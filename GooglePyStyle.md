@@ -121,7 +121,7 @@ Python является основным динамическим языком �
 
 `pylint`
 это инструмент для поиска ошибок (bugs) и проблем стилей в коде Python.
-Он находит проблемы, которые ловяться (находятся) компилятором для не динмаических язык как C и C++. 
+Он находит проблемы, которые ловяться (находятся) компилятором для не динмаических языков как C и C++. 
 Из-за динамической природы Python, некоторые предупреждения могут быть неверными;
 Тем не менее, ложные предупреждения должны быть нечастыми.
 
@@ -1864,8 +1864,8 @@ No:  if x == 4 :
      x , y = y , x
 ```
 
-No whitespace before the open paren/bracket that starts an argument list,
-indexing or slicing.
+Нет пробела перед открытым пареном/скобкой, 
+в которой начинается список аргументов, индексация или разрезание.
 
 ```python
 Yes: spam(1)
@@ -1977,24 +1977,25 @@ by `pydoc`.
 (Try running `pydoc` on your module to see how it looks.) Always use the three
 double-quote `"""` format for docstrings (per
 [PEP 257](https://www.google.com/url?sa=D&q=http://www.python.org/dev/peps/pep-0257/)).
-A docstring should be organized as a summary line (one physical line not
-exceeding 80 characters) terminated by a period, question mark, or exclamation
-point. When writing more (encouraged), this must be followed by a blank line,
-followed by the rest of the docstring starting at the same cursor position as
-the first quote of the first line. There are more formatting guidelines for
-docstrings below.
+Документальная строка должна быть организована как суммарная строка (одна физическая строка, 
+не превышающая 80 символов), оканчивающаяся точкой, вопросительным знаком или восклицательным 
+знаком. При записи больше (рекомендуется), за ней должна следовать пустая строка, 
+за которой следует остальная строка, начинающаяся с той же позиции курсора, что и первая
+кавычка первой строки. Ниже приводятся дополнительные руководящие принципы форматирования 
+для документарных строк.
 
 <a id="s3.8.2-comments-in-modules"></a>
 <a id="382-modules"></a>
 <a id="comments-in-modules"></a>
 
 <a id="module-docs"></a>
-#### 3.8.2 Modules 
+#### 3.8.2 Модули 
 
-Every file should contain license boilerplate. Choose the appropriate boilerplate for the license used by the project (for example, Apache 2.0, BSD, LGPL, GPL)
+Каждый файл должен содержать лицензионные шаблоны. Выберите соответствующий шаблон для лицензии, используемой проектом 
+(например, Apache 2.0, BSD, LGPL, GPL)
 
-Files should start with a docstring describing the contents and usage of the
-module.
+Файлы должны начинаться с документарной строки, описывающей содержимое и использование модуля.
+
 ```python
 """A one line summary of the module or program, terminated by a period.
 
@@ -2016,25 +2017,24 @@ examples.
 <a id="functions-and-methods"></a>
 
 <a id="function-docs"></a>
-#### 3.8.3 Functions and Methods 
+#### 3.8.3 Функции и Методы
 
 In this section, "function" means a method, function, or generator.
 
-A function must have a docstring, unless it meets all of the following criteria:
+Функция должна иметь документарную строку, если она не удовлетворяет всем следующим критериям:
 
--   not externally visible
--   very short
--   obvious
+-   не видимый снаружи
+-   очень короткие
+-   очевидные
 
-A docstring should give enough information to write a call to the function
-without reading the function's code. The docstring should describe the
-function's calling syntax and its semantics, but generally not its
-implementation details, unless those details are relevant to how the function is
-to be used. For example, a function that mutates one of its arguments as a side
-effect should note that in its docstring. Otherwise, subtle but important
-details of a function's implementation that are not relevant to the caller are
-better expressed as comments alongside the code than within the function's
-docstring.
+Документальная строка должна давать достаточно информации для записи вызова функции 
+без чтения кода функции. Документальная строка должна описывать вызывающий синтаксис 
+функции и её семантику, но, как правило, не детали её реализации, если только эти 
+детали не относятся к тому, как эта функция будет использоваться. Например, функция,
+которая изменяет один из аргументов в качестве побочного эффекта, должна отметить это
+в своей документарной строке. В противном случае, тонкие, но важные детали реализации функции,
+которые не имеют отношения к звонящему, лучше выразить как комментарии наряду с кодом, 
+чем в документарной строке функции.
 
 The docstring should be descriptive-style (`"""Fetches rows from a
 Bigtable."""`) rather than imperative-style (`"""Fetch rows from a
@@ -2043,14 +2043,13 @@ same style as the docstring for an attribute or a
 <a href="#doc-function-args">function argument</a> (`"""The Bigtable path."""`,
 rather than `"""Returns the Bigtable path."""`).
 
-A method that overrides a method from a base class may have a simple docstring
-sending the reader to its overridden method's docstring, such as `"""See base
-class."""`. The rationale is that there is no need to repeat in many places
-documentation that is already present in the base method's docstring. However,
-if the overriding method's behavior is substantially different from the
-overridden method, or details need to be provided (e.g., documenting additional
-side effects), a docstring with at least those differences is required on the
-overriding method.
+Метод, который преобразует метод из базового класса, может иметь простую документальную строку, 
+отсылающую читателя в докструну метода, например, `"""See base
+class."""` Смысл в том, что нет необходимости повторять во многих местах документацию,
+которая уже присутствует в документарной строке базового метода. Однако, если поведение 
+преобладающего метода существенно отличается от метода переопределения, или необходимо
+предоставить детали (например, документирование дополнительных побочных эффектов),
+требуется документация, по крайней мере, с этими различиями в методе.
 
 Certain aspects of a function should be documented in special sections, listed
 below. Each section begins with a heading line, which ends with a colon. All
@@ -2129,7 +2128,7 @@ def fetch_smalltable_rows(table_handle: smalltable.Table,
     """
 ```
 
-Similarly, this variation on `Args:` with a line break is also allowed:
+Аналогичным образом, допускается также такое отклонение от значения `Args:` с разрывом линии:
 
 ```python
 def fetch_smalltable_rows(table_handle: smalltable.Table,
@@ -2173,12 +2172,12 @@ def fetch_smalltable_rows(table_handle: smalltable.Table,
 <a id="comments-in-classes"></a>
 
 <a id="class-docs"></a>
-#### 3.8.4 Classes 
+#### 3.8.4 Классы 
 
-Classes should have a docstring below the class definition describing the class.
-If your class has public attributes, they should be documented here in an
-`Attributes` section and follow the same formatting as a
-[function's `Args`](#doc-function-args) section.
+Классы должны иметь документальную строку ниже определения класса, описывающего класс.
+Если ваш класс имеет публичные атрибуты, они должны быть задокументированы здесь в
+`Attributes` и следовать тому же формату, что и
+[function's `Args`](#doc-function-args) сечение.
 
 ```python
 class SampleClass:
@@ -2207,7 +2206,7 @@ class SampleClass:
 <a id="385-block-and-inline-comments"></a>
 
 <a id="comments"></a>
-#### 3.8.5 Block and Inline Comments 
+#### 3.8.5 Block and Inline Comments (Блоки и входящие комментарии)
 
 The final place to have comments is in tricky parts of the code. If you're going
 to have to explain it at the next [code review](http://en.wikipedia.org/wiki/Code_review),
@@ -2224,16 +2223,16 @@ line.
 if i & (i-1) == 0:  # True if i is 0 or a power of 2.
 ```
 
-To improve legibility, these comments should start at least 2 spaces away from
-the code with the comment character `#`, followed by at least one space before
-the text of the comment itself.
+Для улучшения разборчивости, эти комментарии должны начинаться по меньшей мере 
+на 2 пробела от кода с символом комментария `#`, за которым должно следовать 
+по крайней мере одно пространство перед текстом самого комментария.
 
 On the other hand, never describe the code. Assume the person reading the code
 knows Python (though not what you're trying to do) better than you do.
 
 ```python
-# BAD COMMENT: Now go through the b array and make sure whenever i occurs
-# the next element is i+1
+# ПЛОХОЙ КОММЕНТАРИЙ: Теперь пройдитесь по массиву Ь и убедитесь, что когда я появлюсь
+# следующим элементом is i+1
 ```
 
 <!-- The next section is copied from the C++ style guide. -->
@@ -2245,20 +2244,21 @@ knows Python (though not what you're trying to do) better than you do.
 <a id="grammar"></a>
 
 <a id="punctuation-spelling-grammar"></a>
-#### 3.8.6 Punctuation, Spelling, and Grammar 
+#### 3.8.6 Пунктуация, орфография и грамматика
 
-Pay attention to punctuation, spelling, and grammar; it is easier to read
-well-written comments than badly written ones.
+Обратите внимание на пунктуацию, правописание и грамматику;
+легче читать хорошо написанные комментарии, чем плохо написанные.
 
-Comments should be as readable as narrative text, with proper capitalization and
-punctuation. In many cases, complete sentences are more readable than sentence
-fragments. Shorter comments, such as comments at the end of a line of code, can
-sometimes be less formal, but you should be consistent with your style.
+Комментарии должны быть такими же читаемыми, как и описательный текст, 
+с надлежащей капитализацией и пунктуацией. Во многих случаях полные предложения 
+удобочитаемы больше, чем фрагменты предложений. Более короткие комментарии, 
+такие как комментарии в конце строки кода, иногда могут быть менее формальными, 
+но вы должны соответствовать своему стилю.
 
-Although it can be frustrating to have a code reviewer point out that you are
-using a comma when you should be using a semicolon, it is very important that
-source code maintain a high level of clarity and readability. Proper
-punctuation, spelling, and grammar help with that goal.
+Хотя это может быть досадно, когда рецензент кода указывает, 
+что вы используете запятую, когда вы должны использовать точку с запятой, 
+очень важно, чтобы исходный код поддерживал высокий уровень четкости и читаемости. 
+Правильная пунктуация, орфография и грамматика помогают в достижении этой цели.
 
 <a id="s3.10-strings"></a>
 <a id="310-strings"></a>
@@ -2343,27 +2343,27 @@ to remove the initial space on each line:
 
 ```python
   No:
-  long_string = """This is pretty ugly.
-Don't do this.
+  long_string = """Это довольно некрасиво.
+Не делайте так.
 """
 ```
 
 ```python
   Yes:
-  long_string = """This is fine if your use case can accept
-      extraneous leading spaces."""
+  long_string = """Это нормально, если ваш вариант использования может 
+      принимать внешние ведущие пространства."""
 ```
 
 ```python
   Yes:
-  long_string = ("And this is fine if you cannot accept\n" +
-                 "extraneous leading spaces.")
+  long_string = ("И это нормально, если ты не можешь принять\n" +
+                 "внешние ведущие пространства.")
 ```
 
 ```python
   Yes:
-  long_string = ("And this too is fine if you cannot accept\n"
-                 "extraneous leading spaces.")
+  long_string = ("И это тоже хорошо, если ты не можешь принять\n"
+                 "внешние ведущие пространства.")
 ```
 
 ```python
@@ -2440,12 +2440,12 @@ messages shown to the user) should follow three guidelines:
 ```python
   Yes:
   if not 0 <= p <= 1:
-    raise ValueError(f'Not a probability: {p!r}')
+    raise ValueError(f'Маловероятно: {p!r}')
 
   try:
     os.rmdir(workdir)
   except OSError as error:
-    logging.warning('Could not remove directory (reason: %r): %r',
+    logging.warning('Не удалось удалить каталог (причина: %r): %r',
                     error, workdir)
 ```
 
