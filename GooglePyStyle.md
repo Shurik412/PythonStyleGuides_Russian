@@ -23,62 +23,62 @@ See README.md for details.
     *   [2.8 Default Iterators and Operators](#s2.8-default-iterators-and-operators)
     *   [2.9 Генераторы (Generators)](#s2.9-generators)
     *   [2.10 Лямбда-функции (Lambda Functions)](#s2.10-lambda-functions)
-    *   [2.11 Conditional Expressions](#s2.11-conditional-expressions)
-    *   [2.12 Default Argument Values](#s2.12-default-argument-values)
+    *   [2.11 Условные выражения (Conditional Expressions)](#s2.11-conditional-expressions)
+    *   [2.12 Значения аргумента по умолчанию](#s2.12-default-argument-values)
     *   [2.13 Свойства (Properties)](#s2.13-properties)
-    *   [2.14 True/False Evaluations](#s2.14-truefalse-evaluations)
+    *   [2.14 True/False Проверок (оценок)](#s2.14-truefalse-evaluations)
     *   [2.16 Lexical Scoping](#s2.16-lexical-scoping)
-    *   [2.17 Function and Method Decorators](#s2.17-function-and-method-decorators)
-    *   [2.18 Threading](#s2.18-threading)
-    *   [2.19 Power Features](#s2.19-power-features)
-    *   [2.20 Modern Python: from \_\_future\_\_ imports](#s2.20-modern-python)
-    *   [2.21 Type Annotated Code](#s2.21-type-annotated-code)
+    *   [2.17 Декораторы функций и методов](#s2.17-function-and-method-decorators)
+    *   [2.18 Многопоточность](#s2.18-threading)
+    *   [2.19 Характеристики мощности](#s2.19-power-features)
+    *   [2.20 Современный  Python: from \_\_future\_\_ imports](#s2.20-modern-python)
+    *   [2.21 Тип Аннотированный код](#s2.21-type-annotated-code)
 -   [3 Правила стиля Python](#s3-python-style-rules)
-    *   [3.1 Semicolons](#s3.1-semicolons)
-    *   [3.2 Line length](#s3.2-line-length)
-    *   [3.3 Parentheses](#s3.3-parentheses)
-    *   [3.4 Indentation](#s3.4-indentation)
+    *   [3.1 Точка с запятой](#s3.1-semicolons)
+    *   [3.2 Длины строк](#s3.2-line-length)
+    *   [3.3 Скобки](#s3.3-parentheses)
+    *   [3.4 Отступы](#s3.4-indentation)
         +   [3.4.1 Trailing commas in sequences of items?](#s3.4.1-trailing-commas)
-    *   [3.5 Blank Lines](#s3.5-blank-lines)
-    *   [3.6 Whitespace](#s3.6-whitespace)
+    *   [3.5 Пустые строки](#s3.5-blank-lines)
+    *   [3.6 Разделение пробелом](#s3.6-whitespace)
     *   [3.7 Shebang Line](#s3.7-shebang-line)
     *   [3.8 Комментарии и строки документов](#s3.8-comments-and-docstrings)
         +   [3.8.1 Docstrings](#s3.8.1-comments-in-doc-strings)
         +   [3.8.2 Модули (Modules)](#s3.8.2-comments-in-modules)
-        +   [3.8.3 Functions and Methods](#s3.8.3-functions-and-methods)
+        +   [3.8.3 Функции и методы](#s3.8.3-functions-and-methods)
         +   [3.8.4 Классы (Classes)](#s3.8.4-comments-in-classes)
         +   [3.8.5 Блоки и входящие комментарии (Block and Inline Comments)](#s3.8.5-block-and-inline-comments)
-        +   [3.8.6 Punctuation, Spelling, and Grammar](#s3.8.6-punctuation-spelling-and-grammar)
-    *   [3.10 Strings](#s3.10-strings)
-        +   [3.10.1 Logging](#s3.10.1-logging)
-        +   [3.10.2 Error Messages](#s3.10.2-error-messages)
+        +   [3.8.6 Пунктуация, орфография и грамматика (Punctuation, Spelling, and Grammar)](#s3.8.6-punctuation-spelling-and-grammar)
+    *   [3.10 Строки](#s3.10-strings)
+        +   [3.10.1 Журналирование, логирование (Logging)](#s3.10.1-logging)
+        +   [3.10.2 Сообщения об ошибки](#s3.10.2-error-messages)
     *   [3.11 Files, Sockets, and similar Stateful Resources](#s3.11-files-sockets-closeables)
     *   [3.12 TODO Comments](#s3.12-todo-comments)
     *   [3.13 Imports formatting](#s3.13-imports-formatting)
     *   [3.14 Statements](#s3.14-statements)
     *   [3.15 Accessors](#s3.15-accessors)
-    *   [3.16 Naming](#s3.16-naming)
-        +   [3.16.1 Names to Avoid](#s3.16.1-names-to-avoid)
-        +   [3.16.2 Naming Conventions](#s3.16.2-naming-conventions)
-        +   [3.16.3 File Naming](#s3.16.3-file-naming)
+    *   [3.16 Название (Naming)](#s3.16-naming)
+        +   [3.16.1 Имена, которых следует избегать (Names to Avoid)](#s3.16.1-names-to-avoid)
+        +   [3.16.2 Соглашения об именовании (Naming Conventions)](#s3.16.2-naming-conventions)
+        +   [3.16.3 Имя файла (File Naming)](#s3.16.3-file-naming)
         +   [3.16.4 Guidelines derived from Guido's Recommendations](#s3.16.4-guidelines-derived-from-guidos-recommendations)
     *   [3.17 Main](#s3.17-main)
-    *   [3.18 Function length](#s3.18-function-length)
-    *   [3.19 Type Annotations](#s3.19-type-annotations)
-        +   [3.19.1 General Rules](#s3.19.1-general-rules)
-        +   [3.19.2 Line Breaking](#s3.19.2-line-breaking)
+    *   [3.18 Длина функции (Function length)](#s3.18-function-length)
+    *   [3.19 Аннотации к типу (Type Annotations)](#s3.19-type-annotations)
+        +   [3.19.1 Общие правила (General Rules)](#s3.19.1-general-rules)
+        +   [3.19.2 Разрыв линии (Line Breaking)](#s3.19.2-line-breaking)
         +   [3.19.3 Forward Declarations](#s3.19.3-forward-declarations)
-        +   [3.19.4 Default Values](#s3.19.4-default-values)
+        +   [3.19.4 Значения по умолчанию (Default Values)](#s3.19.4-default-values)
         +   [3.19.5 NoneType](#s3.19.5-nonetype)
         +   [3.19.6 Type Aliases](#s3.19.6-type-aliases)
         +   [3.19.7 Ignoring Types](#s3.19.7-ignoring-types)
         +   [3.19.8 Typing Variables](#s3.19.8-typing-variables)
-        +   [3.19.9 Tuples vs Lists](#s3.19.9-tuples-vs-lists)
+        +   [3.19.9 Кортеж vs список (Tuples vs Lists)](#s3.19.9-tuples-vs-lists)
         +   [3.19.10 TypeVars](#s3.19.10-typevars)
-        +   [3.19.11 String types](#s3.19.11-string-types)
+        +   [3.19.11 Строковые типы (String types)](#s3.19.11-string-types)
         +   [3.19.12 Imports For Typing](#s3.19.12-imports-for-typing)
-        +   [3.19.13 Conditional Imports](#s3.19.13-conditional-imports)
-        +   [3.19.14 Circular Dependencies](#s3.19.14-circular-dependencies)
+        +   [3.19.13 Условный импорт (Conditional Imports)](#s3.19.13-conditional-imports)
+        +   [3.19.14 Циклические зависимости (Circular Dependencies)](#s3.19.14-circular-dependencies)
         +   [3.19.15 Generics](#s3.19.15-generics)
         +   [3.19.16 Build Dependencies](#s3.19.16-build-dependencies)
 -   [4 Parting Words](#4-parting-words)
@@ -568,8 +568,8 @@ No:
 Они хороши с некоторыми оговорками.
 Избегайте вложенных функций или классов, за исключением тех случаев, 
 когда они закрываются над локальным значением, отличным `self` или `cls`.
-Не вложивайте функцию, чтобы скрыть ее от пользователей модуля.
-Вместо этого, префикс его имени с  \_ на уровне модуля, чтобы его можно было получить с помощью тестов.
+Не вкладывайте функцию, чтобы скрыть ее от пользователей модуля.
+Вместо этого, префикс его имени с `_` на уровне модуля, чтобы его можно было получить с помощью тестов.
 
 
 <a id="s2.7-comprehensions"></a>
@@ -828,7 +828,7 @@ Lambdas определяет анонимные функции в выражен
 Хорошо использовать их для одного лайнера.
 Если код внутри лямбда-функции длиннее 60-80 шаров,
 вероятно, лучше определить его как обычный
-(вложенная функция)[nested function](#lexical-scoping).
+(вложенная функция) [nested function](#lexical-scoping).
 
 
 Для общих операций, таких как умножение, используйте функции 
@@ -1002,48 +1002,47 @@ No:  def foo(a, b: Mapping = {}):  # Could still get passed to unchecked code
 <a id="2132-pros"></a>
 
 <a id="properties-pros"></a>
-#### 2.13.2 Pros 
+#### 2.13.2 Плюсы 
 
-Readability is increased by eliminating explicit get and set method calls for
-simple attribute access. Allows calculations to be lazy. Considered the Pythonic
-way to maintain the interface of a class. In terms of performance, allowing
-properties bypasses needing trivial accessor methods when a direct variable
-access is reasonable. This also allows accessor methods to be added in the
-future without breaking the interface.
+Удобочитаемость повышается за счет исключения явных вызовов получения и 
+набора методов для доступа к простому атрибуту. Позволяет вычислениям быть ленивыми. 
+Рассмотрел способ Pythonic для поддержания интерфейса класса. 
+С точки зрения производительности, разрешение обхода свойств требует тривиального
+доступа или методов, когда прямой доступ к переменной является разумным. 
+Это также позволяет добавлять методы доступа в будущем без разрыва интерфейса.
 
 <a id="s2.13.3-cons"></a>
 <a id="2133-cons"></a>
 
 <a id="properties-cons"></a>
-#### 2.13.3 Cons 
+#### 2.13.3 Минусы 
 
-Can hide side-effects much like operator overloading. Can be confusing for
-subclasses.
+Может скрывать побочные эффекты, подобные перегрузке оператора. 
+Может вводить в заблуждение подклассы.
 
 <a id="s2.13.4-decision"></a>
 <a id="2134-decision"></a>
 
 <a id="properties-decision"></a>
-#### 2.13.4 Decision 
+#### 2.13.4 Решение 
 
-Properties are allowed, but, like operator overloading, should only be used when
-necessary and match the expectations of typical attribute access; follow the
-[getters and setters](#getters-and-setters) rules otherwise.
+Свойства допускаются, но, как и перегрузка оператора, должны использоваться
+только в случае необходимости и соответствовать ожиданиям типичного доступа атрибута;
+следуйте по [getters and setters](#getters-and-setters) правила в противном случае.
 
-For example, using a property to simply both get and set an internal attribute
-isn't allowed: there is no computation occurring, so the property is unnecessary
-([make it public instead](#getters-and-setters)). In comparison, using a
-property to control attribute access, or calculate a *trivially* derived value,
-is allowed: the logic is trivial, but unsurprising.
+Например, использование свойства для простого получения и установки внутреннего атрибута 
+не допускается: не происходит вычисления, так что свойство не требуется
+([make it public instead](#getters-and-setters)). Для сравнения, использование свойства 
+для контроля доступа к атрибутам, или вычисление *тривиально*
+производного значения, разрешено: логика тривиальна, но неудивительна.
 
-Properties should be created with the `@property`
-[decorator](#s2.17-function-and-method-decorators). Manually implementing a
-property descriptor is considered a [power feature](#power-features).
+Свойства должны быть созданы с помощью `@property` (свойство)
+[decorator](#s2.17-function-and-method-decorators). Ручное выполнение 
+дескриптора свойств считается а [power feature](#power-features).
 
-Inheritance with properties can be non-obvious if the property itself is not
-overridden. Thus one must make sure that accessor methods are called indirectly
-to ensure methods overridden in subclasses are called by the property (using the
-[template method design pattern](https://en.wikipedia.org/wiki/Template_method_pattern)).
+Наследование с собственностью может быть неочевидным, если само имущество не отменено. 
+Таким образом, необходимо убедиться в том, что методы обеспечения доступа вызывается 
+свойством (используя метод [template method design pattern](https://en.wikipedia.org/wiki/Template_method_pattern)).
 
 ```python
 Yes: import math
@@ -1093,63 +1092,63 @@ Yes: import math
 <a id="214-truefalse-evaluations"></a>
 
 <a id="truefalse-evaluations"></a>
-### 2.14 True/False Evaluations 
+### 2.14 True/False Evaluations (Оценка) 
 
-Use the "implicit" false if at all possible.
+Если возможно, используйте "неявное" значение false.
 
 <a id="s2.14.1-definition"></a>
 <a id="2141-definition"></a>
 
 <a id="truefalse-evaluations-definition"></a>
-#### 2.14.1 Definition 
+#### 2.14.1 Определение 
 
-Python evaluates certain values as `False` when in a boolean context. A quick
-"rule of thumb" is that all "empty" values are considered false, so `0, None,
-[], {}, ''` all evaluate as false in a boolean context.
+Python оценивает определённые значения как `False` в логическом контексте. 
+Быстрое "эмпирическое правило" означает, что все "пустые" значения считаются ложными,
+так что `0, None, {}, ''` все оцениваются как ложные в булевском контексте.
 
 <a id="s2.14.2-pros"></a>
 <a id="2142-pros"></a>
 
 <a id="truefalse-evaluations-pros"></a>
-#### 2.14.2 Pros 
+#### 2.14.2 Плюсы 
 
-Conditions using Python booleans are easier to read and less error-prone. In
-most cases, they're also faster.
+Условия, использующие Python booleans, легче читать и менее подвержены ошибкам. 
+В большинстве случаев они также быстрее.
 
 <a id="s2.14.3-cons"></a>
 <a id="2143-cons"></a>
 
 <a id="truefalse-evaluations-cons"></a>
-#### 2.14.3 Cons 
+#### 2.14.3 Минусы 
 
-May look strange to C/C++ developers.
+Может показаться странным для разработчиков С/С++.
 
 <a id="s2.14.4-decision"></a>
 <a id="2144-decision"></a>
 
 <a id="truefalse-evaluations-decision"></a>
-#### 2.14.4 Decision 
+#### 2.14.4 Решение 
 
-Use the "implicit" false if possible, e.g., `if foo:` rather than `if foo !=
-[]:`. There are a few caveats that you should keep in mind though:
+Если возможно, используйте "неявный" ложный, то есть `if foo:` вместо `if foo =!
+[]:`. Есть несколько оговорок, которые вы должны иметь в виду:
 
--   Always use `if foo is None:` (or `is not None`) to check for a `None` value.
-    E.g., when testing whether a variable or argument that defaults to `None`
-    was set to some other value. The other value might be a value that's false
-    in a boolean context!
+-   Всегда используйте `if foo is None:` (or `is not None`), чтобы проверить значение `None`. 
+    Например, при тестировании переменной или аргумента по умолчанию, который по умолчанию равен `None`
+    было задано какое-либо другое значение. Другое значение может быть значением, 
+    которое ложно в логическом контексте!
 
--   Never compare a boolean variable to `False` using `==`. Use `if not x:`
-    instead. If you need to distinguish `False` from `None` then chain the
-    expressions, such as `if not x and x is not None:`.
+-   Никогда не сравнивайте булеву переменную с `False` используя `==`. 
+    Вместо этого используйте `if not x:`. Если вам нужно отличить `False` от `None`
+    то свяжите эти выражения, например, `if not x and x is not None:`.
 
--   For sequences (strings, lists, tuples), use the fact that empty sequences
-    are false, so `if seq:` and `if not seq:` are preferable to `if len(seq):`
-    and `if not len(seq):` respectively.
+-   Для последовательностей (строк, списков, кортежей) следует использовать тот факт, 
+    что пустые последовательности являются ложными, так что `if seq:` и `if not seq:`
+    предпочтительны по сравнению с `if len(seq):` и `if not len(seq):` соответственно.
 
--   When handling integers, implicit false may involve more risk than benefit
-    (i.e., accidentally handling `None` as 0). You may compare a value which is
-    known to be an integer (and is not the result of `len()`) against the
-    integer 0.
+-   При обращении с целыми числами неявный ложный может быть связан с большим риском,
+    чем с выгодой (то есть, случайным обращением с `None` как 0). 
+    Можно сравнить значение, известное как целое (и не являющееся результатом `len()`) 
+    против целого числа 0.
 
     ```python
     Yes: if not users:
@@ -1174,7 +1173,8 @@ Use the "implicit" false if possible, e.g., `if foo:` rather than `if foo !=
              x = x or []
     ```
 
--   Note that `'0'` (i.e., `0` as string) evaluates to true.
+-   Обратите внимание, что значение `'0'` (то есть `0` как строка) имеет значение true.
+
 
 <a id="s2.16-lexical-scoping"></a>
 <a id="216-lexical-scoping"></a>
@@ -1182,22 +1182,21 @@ Use the "implicit" false if possible, e.g., `if foo:` rather than `if foo !=
 <a id="lexical-scoping"></a>
 ### 2.16 Lexical Scoping 
 
-Okay to use.
+Можно использовать.
 
 <a id="s2.16.1-definition"></a>
 <a id="2161-definition"></a>
 
 <a id="lexical-scoping-definition"></a>
-#### 2.16.1 Definition 
+#### 2.16.1 Определение 
 
-A nested Python function can refer to variables defined in enclosing functions,
-but cannot assign to them. Variable bindings are resolved using lexical scoping,
-that is, based on the static program text. Any assignment to a name in a block
-will cause Python to treat all references to that name as a local variable, even
-if the use precedes the assignment. If a global declaration occurs, the name is
-treated as a global variable.
+Вложенная функция Python может относиться к переменным, определённым во вложении функций, 
+но не может назначать их. Переменные привязки разрешаются с помощью лексического анализа, 
+то есть на основе статического текста программы. Любое назначение имени в блоке заставит Python
+рассматривать все ссылки на это имя как локальную переменную, даже если использование предшествует
+назначению. Если происходит глобальное объявление, имя рассматривается как глобальная переменная.
 
-An example of the use of this feature is:
+Примером использования этой функции является:
 
 ```python
 def get_adder(summand1: float) -> Callable[[float], float]:
@@ -1212,18 +1211,18 @@ def get_adder(summand1: float) -> Callable[[float], float]:
 <a id="2162-pros"></a>
 
 <a id="lexical-scoping-pros"></a>
-#### 2.16.2 Pros 
+#### 2.16.2 Плюсы 
 
-Often results in clearer, more elegant code. Especially comforting to
-experienced Lisp and Scheme (and Haskell and ML and ...) programmers.
+Часто приводит к более четкому, более элегантному коду. 
+Особенно комфортно для опытных программистов Lisp и Scheme (и Haskell и ML и ...).
 
 <a id="s2.16.3-cons"></a>
 <a id="2163-cons"></a>
 
 <a id="lexical-scoping-cons"></a>
-#### 2.16.3 Cons 
+#### 2.16.3 Минусы 
 
-Can lead to confusing bugs. Such as this example based on
+Может привести к путанице в ошибках. Например, этот пример основан на
 [PEP-0227](http://www.google.com/url?sa=D&q=http://www.python.org/dev/peps/pep-0227/):
 
 ```python
@@ -1239,38 +1238,43 @@ def foo(x: Iterable[int]):
     bar()
 ```
 
-So `foo([1, 2, 3])` will print `1 2 3 3`,
-not `1 2 3 4`.
+Таким образом, `foo([1, 2, 3])`, будет напечатано: `1 2 3 3`, а не `1 2 3 4`.
 
 <a id="s2.16.4-decision"></a>
 <a id="2164-decision"></a>
 
 <a id="lexical-scoping-decision"></a>
-#### 2.16.4 Decision 
+#### 2.16.4 Решение 
 
-Okay to use.
+Можно использовать.
 
 <a id="s2.17-function-and-method-decorators"></a>
 <a id="217-function-and-method-decorators"></a>
 <a id="function-and-method-decorators"></a>
 
 <a id="decorators"></a>
-### 2.17 Function and Method Decorators 
+### 2.17 Декораторы функций и методов
 
-Use decorators judiciously when there is a clear advantage. Avoid `staticmethod`
-and limit use of `classmethod`.
+Используйте декораторы осторожно, когда есть явное преимущество. 
+Избегайте `staticmethod` и ограничите использование метода `classmethod`.
 
 <a id="s2.17.1-definition"></a>
 <a id="2171-definition"></a>
 
 <a id="decorators-definition"></a>
-#### 2.17.1 Definition 
+#### 2.17.1 Определение 
 
 [Decorators for Functions and Methods](https://docs.python.org/3/glossary.html#term-decorator)
 (a.k.a "the `@` notation"). One common decorator is `@property`, used for
 converting ordinary methods into dynamically computed attributes. However, the
 decorator syntax allows for user-defined decorators as well. Specifically, for
 some function `my_decorator`, this:
+
+Один общий декоратор - это `@property`, используемое для преобразования обычных методов
+в динамически вычисляемые атрибуты. Тем не менее, синтаксис декоратора позволяет также 
+использование декораторов, определенных пользователем. В частности, для некоторых функций
+`my_decorator`:
+
 
 ```python
 class C:
@@ -1279,7 +1283,7 @@ class C:
         # method body ...
 ```
 
-is equivalent to:
+эквивалентно:
 
 ```python
 class C:
@@ -1292,53 +1296,55 @@ class C:
 <a id="2172-pros"></a>
 
 <a id="decorators-pros"></a>
-#### 2.17.2 Pros 
+#### 2.17.2 Плюсы 
 
-Elegantly specifies some transformation on a method; the transformation might
-eliminate some repetitive code, enforce invariants, etc.
+Элегантно определяет некоторые преобразования для метода; 
+преобразование может устранить некоторые повторяющиеся коды,
+обеспечить применение инвариантов и т.д.
 
 <a id="s2.17.3-cons"></a>
 <a id="2173-cons"></a>
 
 <a id="decorators-cons"></a>
-#### 2.17.3 Cons 
+#### 2.17.3 Минусы 
 
-Decorators can perform arbitrary operations on a function's arguments or return
-values, resulting in surprising implicit behavior. Additionally, decorators
-execute at import time. Failures in decorator code are pretty much impossible to
-recover from.
+Декораторы могут выполнять произвольные операции на аргументах функции или 
+возвращаемых значениях, что приводит к неожиданному скрытому поведению. 
+Кроме того, декораторы работают во время импорта. Ошибки в декоративном коде 
+практически невозможно восстановить.
 
 <a id="s2.17.4-decision"></a>
 <a id="2174-decision"></a>
 
 <a id="decorators-decision"></a>
-#### 2.17.4 Decision 
+#### 2.17.4 Решение 
 
-Use decorators judiciously when there is a clear advantage. Decorators should
-follow the same import and naming guidelines as functions. Decorator pydoc
-should clearly state that the function is a decorator. Write unit tests for
-decorators.
+Используйте декораторов осмотрительно, когда есть явное преимущество. 
+Декораторы должны следовать тем же руководящим принципам, что и функции. 
+Декоративный `pydoc` должен четко указывать, что данная функция является декоратором. 
+Напишите модульные тесты для декораторов.
 
-Avoid external dependencies in the decorator itself (e.g. don't rely on files,
-sockets, database connections, etc.), since they might not be available when the
-decorator runs (at import time, perhaps from `pydoc` or other tools). A
-decorator that is called with valid parameters should (as much as possible) be
-guaranteed to succeed in all cases.
+Избегайте внешних зависимостей в самом декораторе (например, не полагайтесь на файлы,
+сокеты, соединения баз данных и т. д.), так как они могут быть недоступны,
+когда декоратор работает (во время импорта, возможно, из `pydoc` или других инструментов).
+Декоратор, вызываемый с допустимыми параметрами, должен (насколько это возможно) 
+быть гарантирован во всех случаях.
 
-Decorators are a special case of "top level code" - see [main](#s3.17-main) for
-more discussion.
+Декораторы - это особый случай "кода верхнего уровня" - смотрите [main](#s3.17-main)
+для дальнейшего обсуждения.
 
-Never use `staticmethod` unless forced to in order to integrate with an API
-defined in an existing library. Write a module level function instead.
+Никогда не используйте `staticmethod` никогда не используйте, если только это не необходимо
+для интеграции с API, определённым в существующей библиотеке. Вместо этого напишите функцию 
+уровня модуля.
 
-Use `classmethod` only when writing a named constructor or a class-specific
-routine that modifies necessary global state such as a process-wide cache.
+Использовать `classmethod` только при записи именованного конструктора или рутинного задания 
+класса, который модифицирует необходимые глобальные состояния, такие как кэш для всего процесса.
 
 <a id="s2.18-threading"></a>
 <a id="218-threading"></a>
 
 <a id="threading"></a>
-### 2.18 Threading 
+### 2.18 Многопоточность 
 
 Do not rely on the atomicity of built-in types.
 
