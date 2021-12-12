@@ -1346,7 +1346,7 @@ class C:
 <a id="threading"></a>
 ### 2.18 Многопоточность 
 
-Do not rely on the atomicity of built-in types.
+Не полагайтесь на атомичность (atomicity) встроенных типов.
 
 While Python's built-in data types such as dictionaries appear to have atomic
 operations, there are corner cases where they aren't atomic (e.g. if `__hash__`
