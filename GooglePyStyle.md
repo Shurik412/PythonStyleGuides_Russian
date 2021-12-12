@@ -1346,131 +1346,129 @@ class C:
 <a id="threading"></a>
 ### 2.18 Многопоточность 
 
-Не полагайтесь на атомичность (atomicity) встроенных типов.
+Не полагайтесь на атомарность (atomicity) встроенных типов.
 
-While Python's built-in data types such as dictionaries appear to have atomic
-operations, there are corner cases where they aren't atomic (e.g. if `__hash__`
-or `__eq__` are implemented as Python methods) and their atomicity should not be
-relied upon. Neither should you rely on atomic variable assignment (since this
-in turn depends on dictionaries).
+В то время как встроенные в Python типы данных, такие как словари, похоже, имеют атомные операции,
+есть угловые случаи, где они не атомарны (например, если `__hash__`
+или `__eq__` реализуются как методы Python) и на их атомарность не следует полагаться. 
+Также не следует полагаться на назначение атомных переменных 
+(поскольку это в свою очередь зависит от словарей).
 
-Use the Queue module's `Queue` data type as the preferred way to communicate
-data between threads. Otherwise, use the threading module and its locking
-primitives. Prefer condition variables and `threading.Condition` instead of
-using lower-level locks.
+В качестве предпочтительного способа передачи данных между потоками используйте тип данных модуля `Queue`.
+В противном случае используйте модуль резьбы и его примитивы блокировки.
+Вместо использования замков более низкого уровня предпочтение отдается переменным условиям и `threading.Condition`.
 
 <a id="s2.19-power-features"></a>
 <a id="219-power-features"></a>
 
 <a id="power-features"></a>
-### 2.19 Power Features 
+### 2.19 Характеристики мощности
 
-Avoid these features.
+Избегать этих особенностей.
 
 <a id="s2.19.1-definition"></a>
 <a id="2191-definition"></a>
 
 <a id="power-features-definition"></a>
-#### 2.19.1 Definition 
+#### 2.19.1 Определение 
 
-Python is an extremely flexible language and gives you many fancy features such
-as custom metaclasses, access to bytecode, on-the-fly compilation, dynamic
-inheritance, object reparenting, import hacks, reflection (e.g. some uses of
-`getattr()`), modification of system internals, `__del__` methods implementing
-customized cleanup, etc.
+Python - это чрезвычайно гибкий язык и дает вам много модных функций 
+такие как пользовательские метаклассы, доступ к байт-коду, компиляция на лету, 
+динамическое наследование, переустановка объектов, импорт хаков, отражение 
+(например, некоторые виды использования `getattr()`), модификация внутренних элементов системы,
+методы `__del__` реализация индивидуальной очистки и т.д.
 
 <a id="s2.19.2-pros"></a>
 <a id="2192-pros"></a>
 
 <a id="power-features-pros"></a>
-#### 2.19.2 Pros 
+#### 2.19.2 Плюсы 
 
-These are powerful language features. They can make your code more compact.
+Это мощные языковые возможности. Они могут сделать ваш код более компактным.
 
 <a id="s2.19.3-cons"></a>
 <a id="2193-cons"></a>
 
 <a id="power-features-cons"></a>
-#### 2.19.3 Cons 
+#### 2.19.3 Минусы 
 
-It's very tempting to use these "cool" features when they're not absolutely
-necessary. It's harder to read, understand, and debug code that's using unusual
-features underneath. It doesn't seem that way at first (to the original author),
-but when revisiting the code, it tends to be more difficult than code that is
-longer but is straightforward.
+Очень заманчиво использовать эти "крутые" черты, когда в них нет абсолютной необходимости. 
+Труднее читать, понимать и отлаживать код, в котором используются необычные функции. 
+Поначалу это не кажется таким способом (для первоначального автора), но при повторном просмотре кода он, 
+как правило, сложнее, чем более длинный, но простой.
 
 <a id="s2.19.4-decision"></a>
 <a id="2194-decision"></a>
 
 <a id="power-features-decision"></a>
-#### 2.19.4 Decision 
+#### 2.19.4 Решение 
 
-Avoid these features in your code.
+Избегайте этих особенностей в вашем коде.
 
-Standard library modules and classes that internally use these features are okay
-to use (for example, `abc.ABCMeta`, `dataclasses`, and `enum`).
+Стандартные библиотечные модули и классы, которые используют эти функции самостоятельно, 
+можно использовать (например, `abc.ABCMeta`, `dataclasses` и `enum`).
+
 
 <a id="s2.20-modern-python"></a>
 <a id="220-modern-python"></a>
 
 <a id="modern-python"></a>
-### 2.20 Modern Python: from \_\_future\_\_ imports 
+### 2.20 Новый Python: from \_\_future\_\_ imports 
 
-New language version semantic changes may be gated behind a special future
-import to enable them on a per-file basis within earlier runtimes.
+Семантические изменения новой языковой версии могут быть включены за специальным будущим импортом, 
+чтобы позволить их на основе каждого файла в более ранних рабочих часах.
 
 <a id="s2.20.1-definition"></a>
 <a id="2201-definition"></a>
 
 <a id="modern-python-definition"></a>
-#### 2.20.1 Definition 
+#### 2.20.1 Описание 
 
-Being able to turn on some of the more modern features via `from __future__
-import` statements allows early use of features from expected future Python
-versions.
+Возможность включить некоторые из более современных функций через заявления `from __future__ import` 
+позволяет использовать функции из ожидаемых будущих версий Python.
 
 <a id="s2.20.2-pros"></a>
 <a id="2202-pros"></a>
 
 <a id="modern-python-pros"></a>
-#### 2.20.2 Pros 
+#### 2.20.2 Плюсы 
 
-This has proven to make runtime version upgrades smoother as changes can be made
-on a per-file basis while declaring compatibility and preventing regressions
-within those files. Modern code is more maintainable as it is less likely to
-accumulate technical debt that will be problematic during future runtime
-upgrades.
+Это доказало, что делает обновление версии во время выполнения более гладким, 
+так как изменения могут быть сделаны на основе каждого файла при объявлении совместимости и 
+предотвращении регрессии в этих файлах. Современный код лучше поддерживается, 
+так как он с меньшей вероятностью будет накапливать технические долги, которые будут 
+проблематичными при будущих обновлениях времени выполнения.
 
 <a id="s2.20.3-cons"></a>
 <a id="2203-cons"></a>
 
 <a id="modern-python-cons"></a>
-#### 2.20.3 Cons 
+#### 2.20.3 Минусы 
 
-Such code may not work on very old interpreter versions prior to the
-introduction of the needed future statement. The need for this is more common in
-projects supporting an extremely wide variety of environments.
+Такой код может не сработать на очень старых версиях устного перевода до представления 
+необходимого будущего заявления. Необходимость в этом более характерна для проектов,
+осуществляемых в самых различных условиях.
 
 <a id="s2.20.4-decision"></a>
 <a id="2204-decision"></a>
 
 <a id="modern-python-decision"></a>
-#### 2.20.4 Decision 
+#### 2.20.4 Описание 
 
 ##### from \_\_future\_\_ imports
 
-Use of `from __future__ import` statements is encouraged. It allows a given
-source file to start using more modern Python syntax features today. Once you no
-longer need to run on a version where the features are hidden behind a
-`__future__` import, feel free to remove those lines.
+Рекомендуется использовать инструкции `from __future__ import`. Это позволяет данному исходному
+файлу начать использовать более современные синтаксические возможности Python сегодня. 
+После того, как вам больше не нужно запускать версию, где функции скрыты за импортом `__future__`, 
+вы можете удалить эти строки.
 
-In code that may execute on versions as old as 3.5 rather than >= 3.7, import:
+В коде, который может выполняться на версиях, старых как 3.5, а не >= 3.7, импорт:
 
 ```python
 from __future__ import generator_stop
 ```
 
-For legacy code with the burden of continuing to support 2.7, import:
+Для унаследованного кода, на котором лежит бремя продолжения поддержки 2.7, импортируйте:
 
 ```python
 from __future__ import absolute_import
@@ -1478,15 +1476,15 @@ from __future__ import division
 from __future__ import print_function
 ```
 
-For more information read the
+Дополнительную информацию можно получить на веб-сайте по адресу:
 [Python future statement definitions](https://docs.python.org/3/library/__future__.html)
-documentation.
+документации.
 
-Please don't remove these imports until you are confident the code is only ever
-used in a sufficiently modern environment. Even if you do not currently use the
-feature a specific future import enables in your code today, keeping it in place
-in the file prevents later modifications of the code from inadvertently
-depending on the older behavior.
+Пожалуйста, не удаляйте эти импортированные данные до тех пор, пока вы не будете уверены, 
+что код используется только в достаточно современной среде. Даже если вы в данный момент 
+не используете функцию, которую позволяет вам конкретный будущий импорт в вашем коде сегодня,
+сохранение его в файле предотвращает последующие изменения кода непреднамеренно в зависимости
+от более старого поведения.
 
 Use other `from __future__` import statements as you see fit. We did not include
 `unicode_literals` in our recommendations for 2.7 as it was not a clear win due
@@ -1494,13 +1492,20 @@ to implicit default codec conversion consequences it introduced in many places
 within 2.7. Most dual-version 2-and-3 code was better off with explicit use of
 `b''` and `u''` bytes and unicode string literals where necessary.
 
-##### The six, future, and past libraries
+Используйте другие импортные инструкции `from __future__`, как считаете нужным.
+Мы не включили `unicode_literals` в наши рекомендации для 2.7, поскольку это не была
+ясная победа из-за имплицитных последствий кодеков по умолчанию, которые она ввела
+во многих местах в 2.7. Большинство двойственных кодов 2-и-3 было лучше при явном 
+использовании байтов `b''` и `u''` и строковых символов unicode.
 
-When your project still needs to support use under both Python 2 and 3, use the
+
+##### Шесть будущих и прошлых библиотек
+
+Когда ваш проект все еще нуждается в поддержке использования в Python 2 и 3, используйте
 [six](https://pypi.org/project/six/),
-[future](https://pypi.org/project/future/), and
-[past](https://pypi.org/project/past/) libraries as you see fit. They exist to
-make your code cleaner and life easier.
+[future](https://pypi.org/project/future/), и
+[past](https://pypi.org/project/past/) библиотеки по вашему усмотрению. Они существуют,
+чтобы сделать твой код чище и проще.
 
 <a id="s2.21-type-annotated-code"></a>
 <a id="s2.21-typed-code"></a>
@@ -1510,38 +1515,37 @@ make your code cleaner and life easier.
 <a id="typed-code"></a>
 ### 2.21 Type Annotated Code 
 
-You can annotate Python 3 code with type hints according to
-[PEP-484](https://www.python.org/dev/peps/pep-0484/), and type-check the code at
-build time with a type checking tool like [pytype](https://github.com/google/pytype).
+Вы можете аннотировать код Python 3 с подсказками типа согласно
+[PEP-484](https://www.python.org/dev/peps/pep-0484/), и проверить код во время сборки с помощью инструмента проверки типа,
+например [pytype](https://github.com/google/pytype).
 
 
-Type annotations can be in the source or in a
-[stub pyi file](https://www.python.org/dev/peps/pep-0484/#stub-files). Whenever
-possible, annotations should be in the source. Use pyi files for third-party or
-extension modules.
+Аннотации типов могут быть в источнике или в
+[stub pyi file](https://www.python.org/dev/peps/pep-0484/#stub-files). По возможности, 
+аннотации должны быть в источнике. Используйте файлы pyi для модулей сторонних разработчиков или расширения.
 
 
 <a id="s2.21.1-definition"></a>
 <a id="2211-definition"></a>
 
 <a id="typed-code-definition"></a>
-#### 2.21.1 Definition 
+#### 2.21.1 Определение 
 
-Type annotations (or "type hints") are for function or method arguments and
-return values:
+Аннотации типа (или "подсказки типа" ("type hints")) 
+предназначены для аргументов функции или метода и возвращаемых значений:
 
 ```python
 def func(a: int) -> List[int]:
 ```
 
-You can also declare the type of a variable using similar
-[PEP-526](https://www.python.org/dev/peps/pep-0526/) syntax:
+Можно также указать тип переменной, используя аналогичный 
+[PEP-526](https://www.python.org/dev/peps/pep-0526/) синтаксис:
 
 ```python
 a: SomeType = some_func()
 ```
 
-Or by using a type comment in code that must support legacy Python versions.
+Или с помощью комментария типа в коде, который должен поддерживать устаревшие версии Python.
 
 ```python
 a = some_func()  # type: SomeType
@@ -1551,39 +1555,38 @@ a = some_func()  # type: SomeType
 <a id="2212-pros"></a>
 
 <a id="typed-code-pros"></a>
-#### 2.21.2 Pros 
+#### 2.21.2 Плюсы 
 
-Type annotations improve the readability and maintainability of your code. The
-type checker will convert many runtime errors to build-time errors, and reduce
-your ability to use [Power Features](#power-features).
+Аннотации типов улучшают удобочитаемость и содержание вашего кода. 
+Проверка типа преобразует множество ошибок времени выполнения в 
+ошибки времени сборки и уменьшит возможность использования [Power Features](#power-features).
 
 <a id="s2.21.3-cons"></a>
 <a id="2213-cons"></a>
 
 <a id="typed-code-cons"></a>
-#### 2.21.3 Cons 
+#### 2.21.3 Минусы
 
-You will have to keep the type declarations up to date.
-You might see type errors that you think are
-valid code. Use of a
+Необходимо постоянно обновлять типовые декларации.
+Вы можете увидеть ошибки типа, которые, по вашему мнению, являются допустимыми кодами. 
+Использование
 [type checker](https://github.com/google/pytype)
-may reduce your ability to use [Power Features](#power-features).
+может уменьшить вашу способность использовать [Power Features](#power-features).
 
 <a id="s2.21.4-decision"></a>
 <a id="2214-decision"></a>
 
 <a id="typed-code-decision"></a>
-#### 2.21.4 Decision 
+#### 2.21.4 Определение 
 
-You are strongly encouraged to enable Python type analysis when updating code.
-When adding or modifying public APIs, include type annotations and enable
-checking via pytype in the build system. As static analysis is relatively new to
-Python, we acknowledge that undesired side-effects (such as
-wrongly
-inferred types) may prevent adoption by some projects. In those situations,
-authors are encouraged to add a comment with a TODO or link to a bug describing
-the issue(s) currently preventing type annotation adoption in the BUILD file or
-in the code itself as appropriate.
+При обновлении кода настоятельно рекомендуется включить анализ типа Python. 
+При добавлении или изменении общедоступных API, включите аннотации типов и включите проверку
+через pytype в системе сборки. Поскольку статический анализ является относительно новым для Python,
+мы признаем, что нежелательные побочные эффекты (такие как ошибочно выводимые типы) могут
+препятствовать принятию некоторыми проектами. В таких ситуациях авторам рекомендуется добавить
+комментарий с TODO или ссылку на ошибку, описывающую проблему(ы),
+которая в настоящее время препятствует принятию аннотаций типа в файле BUILD или в самом коде, 
+когда это уместно.
 
 <a id="s3-python-style-rules"></a>
 <a id="3-python-style-rules"></a>
@@ -1597,107 +1600,109 @@ in the code itself as appropriate.
 <a id="semicolons"></a>
 ### 3.1 Точками с запятой (Semicolons) 
 
-Do not terminate your lines with semicolons, and do not use semicolons to put
-two statements on the same line.
+Не прерывайте ваши строки с точками с запятой и не используйте точки с запятой, 
+чтобы поместить два утверждения на одну строку.
 
 <a id="s3.2-line-length"></a>
 <a id="32-line-length"></a>
 
 <a id="line-length"></a>
-### 3.2 Line length 
+### 3.2 Длина строки
 
-Maximum line length is *80 characters*.
+Максимальная длина линии составляет *80 символов*.
 
-Explicit exceptions to the 80 character limit:
+Явные исключения из ограничения в 80 знаков:
 
--   Long import statements.
--   URLs, pathnames, or long flags in comments.
--   Long string module level constants not containing whitespace that would be
-    inconvenient to split across lines such as URLs or pathnames.
-    -   Pylint disable comments. (e.g.: `# pylint: disable=invalid-name`)
+-   Длинные отчеты по импорту.
+-   URL, имена путей или длинные флаги в комментариях.
+-   Длинные строковые константы уровня модуля, не содержащие пробелы, 
+    которые не могут быть разделены между строками, такими как URL или имена путей.
+    -   Pylint выводит из строя комментарии. (e.g.: `# pylint: disable=invalid-name`)
+    
 
-Do not use backslash line continuation except for `with` statements requiring
-three or more context managers.
+Не используйте продолжение обратной линии, за исключением `with` заявлениями, 
+требующими трех или более контекстных менеджеров.
 
-Make use of Python's
+Использовать Python's
 [implicit line joining inside parentheses, brackets and braces](http://docs.python.org/reference/lexical_analysis.html#implicit-line-joining).
-If necessary, you can add an extra pair of parentheses around an expression.
+При необходимости можно добавить дополнительную пару скобок вокруг выражения.
 
 ```python
-Yes: foo_bar(self, width, height, color='black', design=None, x='foo',
+Да: foo_bar(self, width, height, color='black', design=None, x='foo',
              emphasis=None, highlight=0)
 
      if (width == 0 and height == 0 and
          color == 'red' and emphasis == 'strong'):
 ```
 
-When a literal string won't fit on a single line, use parentheses for implicit
-line joining.
+Когда буквенная строка не умещается на одной строке, используйте скобки для неявного соединения строк.
 
 ```python
 x = ('This will build a very long long '
      'long long long long long long string')
 ```
 
-Within comments, put long URLs on their own line if necessary.
+В комментариях разместите длинные URL на своей собственной линии, если необходимо.
 
 ```python
-Yes:  # See details at
+Да:  # See details at
       # http://www.example.com/us/developer/documentation/api/content/v2.0/csv_file_name_extension_full_specification.html
 ```
 
 ```python
-No:  # See details at
+Нет:  # See details at
      # http://www.example.com/us/developer/documentation/api/content/\
      # v2.0/csv_file_name_extension_full_specification.html
 ```
 
-It is permissible to use backslash continuation when defining a `with` statement
-whose expressions span three or more lines. For two lines of expressions, use a
-nested `with` statement:
+При определении выражения `with` с выражением, охватывающим три или более строк, 
+допускается продолжение обратной косой линии. Для двух строк выражения используйте вложенную 
+`with` инструкцией:
+
 
 ```python
-Yes:  with very_long_first_expression_function() as spam, \
+Да:  with very_long_first_expression_function() as spam, \
            very_long_second_expression_function() as beans, \
            third_thing() as eggs:
           place_order(eggs, beans, spam, beans)
 ```
 
 ```python
-No:  with VeryLongFirstExpressionFunction() as spam, \
+Нет:  with VeryLongFirstExpressionFunction() as spam, \
           VeryLongSecondExpressionFunction() as beans:
        PlaceOrder(beans, spam)
 ```
 
 ```python
-Yes:  with very_long_first_expression_function() as spam:
+Да:  with very_long_first_expression_function() as spam:
           with very_long_second_expression_function() as beans:
               place_order(beans, spam)
 ```
 
-Make note of the indentation of the elements in the line continuation examples
-above; see the [indentation](#s3.4-indentation) section for explanation.
+Обратите внимание на отступы элементов в повторяющейся строке примеры выше; 
+см. [indentation](#s3.4-indentation) раздел для объяснения.
 
-In all other cases where a line exceeds 80 characters, and the
+Во всех других случаях, когда строка превышает 80 символов, и
 [yapf](https://github.com/google/yapf/)
-auto-formatter does not help bring the line below the limit, the line is allowed
-to exceed this maximum. Authors are encouraged to manually break the line up per
-the notes above when it is sensible.
+auto-formatter не помогает перенести строку ниже предельного значения,
+строка может превышать это максимальное значение. В тех случаях, когда это целесообразно, 
+авторы поощряются к тому, чтобы вручную разорвать эту линию в соответствии с 
+приведенными выше примечаниями.
 
 <a id="s3.3-parentheses"></a>
 <a id="33-parentheses"></a>
 
 <a id="parentheses"></a>
-### 3.3 Parentheses 
+### 3.3 Скобки 
 
-Use parentheses sparingly.
+Используйте скобки экономно.
 
-It is fine, though not required, to use parentheses around tuples. Do not use
-them in return statements or conditional statements unless using parentheses for
-implied line continuation or to indicate a tuple.
+Можно, хотя и не обязательно, использовать скобки вокруг трусиков. 
+Не используйте их в заявлениях о возврате или условных заявлениях,
+за исключением использования скобок для подразумеваемого продолжения строки или для указания кортежа.
 
 ```python
-Yes: if foo:
+Да: if foo:
          bar()
      while x:
          x = bar()
@@ -1714,7 +1719,7 @@ Yes: if foo:
 ```
 
 ```python
-No:  if (x):
+Нет:  if (x):
          bar()
      if not(x):
          bar()
@@ -1725,18 +1730,18 @@ No:  if (x):
 <a id="34-indentation"></a>
 
 <a id="indentation"></a>
-### 3.4 Indentation 
+### 3.4 Отступы
 
-Indent your code blocks with *4 spaces*.
+Отступить блоки кода с *4 пробелами*.
 
-Never use tabs or mix tabs and spaces. In cases of implied line continuation,
-you should align wrapped elements either vertically, as per the examples in the
-[line length](#s3.2-line-length) section; or using a hanging indent of 4 spaces,
-in which case there should be nothing after the open parenthesis or bracket on
-the first line.
+Никогда не используйте вкладки и не смешивайте вкладки и пробелы. 
+В случае предполагаемого продолжения строки, вы должны выровнять 
+упакованные элементы либо вертикально, как показано в примерах
+[line length](#s3.2-line-length) раздел; или использовать откидной отступ в 4 места,
+в этом случае после открытой скобки или скобки на первой строке ничего не должно быть.
 
 ```python
-Yes:   # Aligned with opening delimiter
+Да:   # Aligned with opening delimiter
        foo = long_function_name(var_one, var_two,
                                 var_three, var_four)
        meal = (spam,
@@ -1766,7 +1771,7 @@ Yes:   # Aligned with opening delimiter
 ```
 
 ```python
-No:    # Stuff on first line forbidden
+Нет:    # Stuff on first line forbidden
        foo = long_function_name(var_one, var_two,
            var_three, var_four)
        meal = (spam,
@@ -1795,17 +1800,18 @@ No:    # Stuff on first line forbidden
 <a id="trailing_commas"></a>
 
 <a id="trailing-comma"></a>
-#### 3.4.1 Trailing commas in sequences of items? 
+#### 3.4.1 Следящие запятые в последовательностях?
 
-Trailing commas in sequences of items are recommended only when the closing
-container token `]`, `)`, or `}` does not appear on the same line as the final
-element. The presence of a trailing comma is also used as a hint to our Python
-code auto-formatter [YAPF](https://pypi.org/project/yapf/) to direct it to auto-format the container
-of items to one item per line when the `,` after the final element is present.
+Замкнутые запятые в последовательностях позиций рекомендуются только в том случае, 
+если маркер закрывающего контейнера `]`, `)` или `}` не находится на одной строке с конечным элементом. 
+Наличие обратной запятой также используется в качестве подсказки для нашего авто-форматера кода Python 
+[YAPF](https://pypi.org/project/yapf/), чтобы перенаправить его на автоформатирование контейнера
+в одну строку при наличии `,` после окончательного элемента.
+
 
 ```python
-Yes:   golomb3 = [0, 1, 3]
-Yes:   golomb4 = [
+Да:   golomb3 = [0, 1, 3]
+Да:   golomb4 = [
            0,
            1,
            4,
@@ -1814,7 +1820,7 @@ Yes:   golomb4 = [
 ```
 
 ```python
-No:    golomb4 = [
+Нет:    golomb4 = [
            0,
            1,
            4,
@@ -1826,46 +1832,46 @@ No:    golomb4 = [
 <a id="35-blank-lines"></a>
 
 <a id="blank-lines"></a>
-### 3.5 Blank Lines 
+### 3.5 Пустые строки 
 
-Two blank lines between top-level definitions, be they function or class
-definitions. One blank line between method definitions and between the `class`
-line and the first method. No blank line following a `def` line. Use single
-blank lines as you judge appropriate within functions or methods.
+Две пустые строки между определениями верхнего уровня, будь то функциональные или классовые определения.
+Одна незаполненная строка между определениями метода и между строкой `class` и первой строкой. 
+После строки `def` пустота отсутствует. 
+Используйте одиночные пустые строки, как вы считаете нужным в функциях или методах.
 
-Blank lines need not be anchored to the definition. For example, related
-comments immediately preceding function, class, and method definitions can make
-sense. Consider if your comment might be more useful as part of the docstring.
+Незаполненные строки не обязательно привязывать к определению. Например, комментарии, 
+непосредственно предшествующие определению функции, класса и метода, могут иметь смысл. 
+Подумайте, может ли ваш комментарий быть более полезным в качестве части документальной строки.
 
 <a id="s3.6-whitespace"></a>
 <a id="36-whitespace"></a>
 
 <a id="whitespace"></a>
-### 3.6 Whitespace 
+### 3.6 Пробелы
 
-Follow standard typographic rules for the use of spaces around punctuation.
+Следуйте стандартным типографическим правилам использования пространств вокруг пунктуации.
 
-No whitespace inside parentheses, brackets or braces.
+Нет пробела внутри скобок, скобок или скобок.
 
 ```python
-Yes: spam(ham[1], {'eggs': 2}, [])
+Да: spam(ham[1], {'eggs': 2}, [])
 ```
 
 ```python
-No:  spam( ham[ 1 ], { 'eggs': 2 }, [ ] )
+Нет:  spam( ham[ 1 ], { 'eggs': 2 }, [ ] )
 ```
 
-No whitespace before a comma, semicolon, or colon. Do use whitespace after a
-comma, semicolon, or colon, except at the end of the line.
+Нет пробела перед запятой, точкой с запятой или двоеточием.
+Используйте пробел после запятой, запятой или двоеточия, кроме как в конце линии.
 
 ```python
-Yes: if x == 4:
+Да: if x == 4:
          print(x, y)
      x, y = y, x
 ```
 
 ```python
-No:  if x == 4 :
+Нет:  if x == 4 :
          print(x , y)
      x , y = y , x
 ```
@@ -1874,22 +1880,22 @@ No:  if x == 4 :
 в которой начинается список аргументов, индексация или разрезание.
 
 ```python
-Yes: spam(1)
+Да: spam(1)
 ```
 
 ```python
-No:  spam (1)
+Нет:  spam (1)
 ```
 
 ```python
-Yes: dict['key'] = list[index]
+Да: dict['key'] = list[index]
 ```
 
 ```python
-No:  dict ['key'] = list [index]
+Нет:  dict ['key'] = list [index]
 ```
 
-No trailing whitespace.
+Ни следа за пробелом.
 
 Surround binary operators with a single space on either side for assignment
 (`=`), comparisons (`==, <, >, !=, <>, <=, >=, in, not in, is, is not`), and
@@ -1897,11 +1903,11 @@ Booleans (`and, or, not`). Use your better judgment for the insertion of spaces
 around arithmetic operators (`+`, `-`, `*`, `/`, `//`, `%`, `**`, `@`).
 
 ```python
-Yes: x == 1
+Да: x == 1
 ```
 
 ```python
-No:  x<1
+Нет:  x<1
 ```
 
 Never use spaces around `=` when passing keyword arguments or defining a default
@@ -1910,20 +1916,20 @@ parameter value, with one exception:
 around the `=` for the default parameter value.
 
 ```python
-Yes: def complex(real, imag=0.0): return Magic(r=real, i=imag)
-Yes: def complex(real, imag: float = 0.0): return Magic(r=real, i=imag)
+Да: def complex(real, imag=0.0): return Magic(r=real, i=imag)
+Да: def complex(real, imag: float = 0.0): return Magic(r=real, i=imag)
 ```
 
 ```python
-No:  def complex(real, imag = 0.0): return Magic(r = real, i = imag)
-No:  def complex(real, imag: float=0.0): return Magic(r = real, i = imag)
+Нет:  def complex(real, imag = 0.0): return Magic(r = real, i = imag)
+Нет:  def complex(real, imag: float=0.0): return Magic(r = real, i = imag)
 ```
 
 Don't use spaces to vertically align tokens on consecutive lines, since it
 becomes a maintenance burden (applies to `:`, `#`, `=`, etc.):
 
 ```python
-Yes:
+Да:
   foo = 1000  # comment
   long_name = 2  # comment that should not be aligned
 
@@ -1934,7 +1940,7 @@ Yes:
 ```
 
 ```python
-No:
+Нет:
   foo       = 1000  # comment
   long_name = 2     # comment that should not be aligned
 
@@ -1966,8 +1972,7 @@ This line is used by the kernel to find the Python interpreter, but is ignored b
 <a id="documentation"></a>
 ### 3.8 Comments and Docstrings 
 
-Be sure to use the right style for module, function, method docstrings and
-inline comments.
+Обязательно используйте правильный стиль для модуля, функции, документооборота метода и внутренних комментариев.
 
 <a id="s3.8.1-comments-in-doc-strings"></a>
 <a id="381-docstrings"></a>
@@ -2025,7 +2030,7 @@ examples.
 <a id="function-docs"></a>
 #### 3.8.3 Функции и Методы
 
-In this section, "function" means a method, function, or generator.
+В настоящем разделе "функция" означает метод, функцию или генератор.
 
 Функция должна иметь документарную строку, если она не удовлетворяет всем следующим критериям:
 
@@ -2057,12 +2062,11 @@ class."""` Смысл в том, что нет необходимости пов
 предоставить детали (например, документирование дополнительных побочных эффектов),
 требуется документация, по крайней мере, с этими различиями в методе.
 
-Certain aspects of a function should be documented in special sections, listed
-below. Each section begins with a heading line, which ends with a colon. All
-sections other than the heading should maintain a hanging indent of two or four
-spaces (be consistent within a file). These sections can be omitted in cases
-where the function's name and signature are informative enough that it can be
-aptly described using a one-line docstring.
+Некоторые аспекты той или иной функции должны быть отражены в специальных разделах, перечисленных ниже.
+Каждая секция начинается с линии, которая заканчивается двоеточием. Все разделы, кроме заголовка, 
+должны иметь указатель, состоящий из двух или четырех пробелов (быть последовательными в файле). 
+Эти разделы могут быть опущены в случаях, когда имя и подпись функции достаточно информативны, 
+чтобы её можно было описать с помощью однолинейной документарной строки.
 
 <a id="doc-function-args"></a>
 [*Args:*](#doc-function-args)
@@ -2693,13 +2697,13 @@ the entire statement fits on one line. In particular, you can never do so with
 you can only do so with an `if` if there is no `else`.
 
 ```python
-Yes:
+Да:
 
   if foo: bar(foo)
 ```
 
 ```python
-No:
+Нет:
 
   if foo: bar(foo)
   else:   baz(foo)
@@ -2721,12 +2725,12 @@ No:
 <a id="getters-and-setters"></a>
 ### 3.15 Getters and Setters 
 
-Getter and setter functions (also called accessors and mutators) should be used
-when they provide a meaningful role or behavior for getting or setting a
-variable's value.
+Функции Getter и Setter (также называемые аксессуарами и мутаторами) должны использоваться, 
+когда они обеспечивают значимую роль или поведение для получения или установки значения переменной.
 
-In particular, they should be used when getting or setting the variable is
-complex or the cost is significant, either currently or in a reasonable future.
+В частности, они должны использоваться в тех случаях, когда получение или установка переменной 
+является сложной задачей или когда затраты являются значительными либо в настоящее время, 
+либо в разумном будущем.
 
 If, for example, a pair of getters/setters simply read and write an internal
 attribute, the internal attribute should be made public instead. By comparison,
@@ -2825,7 +2829,7 @@ Always use a `.py` filename extension. Never use dashes.
 <a id="3163-file-naming"></a>
 
 <a id="file-naming"></a>
-#### 3.16.3 File Naming 
+#### 3.16.3 Имя файла
 
 Python filenames must have a `.py` extension and must not contain dashes (`-`).
 This allows them to be imported and unittested. If you want an executable to be
@@ -2920,7 +2924,7 @@ containing `exec "$0.py" "$@"`.
 <a id="317-main"></a>
 
 <a id="math-notation"></a>
-#### 3.16.5 Mathematical Notation 
+#### 3.16.5 Математическая нотация
 
 For mathematically heavy code, short variable names that would otherwise violate
 the style guide are preferred when they match established notation in a
@@ -2953,7 +2957,7 @@ if __name__ == '__main__':
     app.run(main)
 ```
 
-Otherwise, use:
+В противном случае, использовать:
 
 ```python
 def main():
@@ -2971,31 +2975,28 @@ should not be executed when the file is being `pydoc`ed.
 <a id="318-function-length"></a>
 
 <a id="function-length"></a>
-### 3.18 Function length 
+### 3.18 Длина функции
 
-Prefer small and focused functions.
+Предпочитают маленькие и сфокусированные функции.
 
-We recognize that long functions are sometimes appropriate, so no hard limit is
-placed on function length. If a function exceeds about 40 lines, think about
-whether it can be broken up without harming the structure of the program.
+Мы признаем, что длинные функции иногда уместны, поэтому нет жесткого ограничения на длину функции. 
+Если функция превышает около 40 строк, подумайте о том, может ли она быть разрушена без ущерба для 
+структуры программы.
 
-Even if your long function works perfectly now, someone modifying it in a few
-months may add new behavior. This could result in bugs that are hard to find.
-Keeping your functions short and simple makes it easier for other people to read
-and modify your code.
+Даже если ваша долгая функция работает прекрасно сейчас, кто-то, модифицируя ее через несколько месяцев,
+может добавить новое поведение. Это может привести к ошибкам, которые трудно найти.
+Простота и краткость ваших функций облегчает другим людям чтение и изменение вашего кода.
 
-You could find long and complicated functions when working with
-some
-code. Do not be intimidated by modifying existing code: if working with such a
-function proves to be difficult, you find that errors are hard to debug, or you
-want to use a piece of it in several different contexts, consider breaking up
-the function into smaller and more manageable pieces.
+При работе с кодом можно найти длинные и сложные функции. Не пугайтесь изменения существующего кода:
+если работа с такой функцией оказывается сложной, вы обнаруживаете, что ошибки трудно отладить, 
+или вы хотите о использовать часть в нескольких различных контекстах,
+рассмотреть разделение функции на более мелкие и более управляемые части.
 
 <a id="s3.19-type-annotations"></a>
 <a id="319-type-annotations"></a>
 
 <a id="type-annotations"></a>
-### 3.19 Type Annotations 
+### 3.19 Аннотации к типу 
 
 <a id="s3.19.1-general-rules"></a>
 <a id="s3.19.1-general"></a>
@@ -3025,11 +3026,11 @@ the function into smaller and more manageable pieces.
 <a id="3192-line-breaking"></a>
 
 <a id="typing-line-breaking"></a>
-#### 3.19.2 Line Breaking 
+#### 3.19.2 Разрыв линии
 
 Try to follow the existing [indentation](#indentation) rules.
 
-After annotating, many function signatures will become "one parameter per line".
+После аннотации многие подписи функций станут "одним параметром в строке".
 
 ```python
 def my_method(self,
@@ -3039,17 +3040,15 @@ def my_method(self,
   ...
 ```
 
-Always prefer breaking between variables, and not, for example, between variable
-names and type annotations. However, if everything fits on the same line, go for
-it.
+Всегда предпочитаем разбивку между переменными, а не, например, 
+между именами переменных и аннотациями типов. Однако, если все сходится на одной линии, вперед.
 
 ```python
 def my_method(self, first_var: int) -> int:
   ...
 ```
 
-If the combination of the function name, the last parameter, and the return type
-is too long, indent by 4 in a new line.
+Если комбинация имени функции, последнего параметра и типа возврата слишком длинная, отступ 4 в новой строке.
 
 ```python
 def my_method(
@@ -3062,7 +3061,7 @@ preferred way is to indent the parameters by 4 on a new line and align the
 closing parenthesis with the `def`.
 
 ```python
-Yes:
+Да:
 def my_method(
     self, other_arg: Optional[MyLongType]
 ) -> Dict[OtherLongType, MyLongType]:
@@ -3070,19 +3069,19 @@ def my_method(
 ```
 
 `pylint`
-allows you to move the closing parenthesis to a new line and align with the
-opening one, but this is less readable.
+позволяет переместить заключительную скобку в новую строку и выравнять ее с открывающей строкой, 
+но это не так удобочитаемо.
 
 ```python
-No:
+Нет:
 def my_method(self,
               other_arg: Optional[MyLongType]
              ) -> Dict[OtherLongType, MyLongType]:
   ...
 ```
 
-As in the examples above, prefer not to break types. However, sometimes they are
-too long to be on a single line (try to keep sub-types unbroken).
+Как и в приведенных выше примерах, предпочитают не разбивать типы.
+Однако иногда они слишком длинные, чтобы быть на одной строке (старайтесь сохранить подвиды неизменными).
 
 ```python
 def my_method(
@@ -3099,7 +3098,7 @@ If a single name and type is too long, consider using an
 colon and indent by 4.
 
 ```python
-Yes:
+Да:
 def my_function(
     long_variable_name:
         long_module_name.LongTypeName,
@@ -3108,7 +3107,7 @@ def my_function(
 ```
 
 ```python
-No:
+Нет:
 def my_function(
     long_variable_name: long_module_name.
         LongTypeName,
@@ -3137,7 +3136,7 @@ class MyClass:
 <a id="3194-default-values"></a>
 
 <a id="typing-default-values"></a>
-#### 3.19.4 Default Values 
+#### 3.19.4 Значения по умолчанию 
 
 As per
 [PEP-008](https://www.python.org/dev/peps/pep-0008/#other-recommendations), use
@@ -3145,13 +3144,13 @@ spaces around the `=` _only_ for arguments that have both a type annotation and
 a default value.
 
 ```python
-Yes:
+Да:
 def func(a: int = 0) -> int:
   ...
 ```
 
 ```python
-No:
+Нет:
 def func(a:int=0) -> int:
   ...
 ```
@@ -3173,7 +3172,7 @@ Use explicit `Optional` instead of implicit `Optional`. Earlier versions of PEP
 that is no longer the preferred behavior.
 
 ```python
-Yes:
+Да:
 def func(a: Optional[str], b: Optional[str] = None) -> str:
   ...
 def multiple_nullable_union(a: Union[None, str, int]) -> str:
@@ -3181,7 +3180,7 @@ def multiple_nullable_union(a: Union[None, str, int]) -> str:
 ```
 
 ```python
-No:
+Нет:
 def nullable_union(a: Union[None, str]) -> str:
   ...
 def implicit_optional(a: str = None) -> str:
@@ -3194,21 +3193,19 @@ def implicit_optional(a: str = None) -> str:
 <a id="typing-aliases"></a>
 
 <a id="type-aliases"></a>
-#### 3.19.6 Type Aliases 
+#### 3.19.6 Type Aliases (Тип Псевдонимы)  
 
 You can declare aliases of complex types. The name of an alias should be
 CapWorded. If the alias is used only in this module, it should be \_Private.
 
-For example, if the name of the module together with the name of the type is too
-long:
+Например, если имя модуля вместе с именем типа является слишком длинным:
 
 ```python
 _ShortName = module_with_long_name.TypeWithLongName
 ComplexMap = Mapping[str, List[Tuple[int, int]]]
 ```
 
-Other examples are complex nested types and multiple return variables from a
-function (as a tuple).
+Другими примерами являются сложные вложенные типы и множественные возвращаемые переменные из функции (как кортеж).
 
 <a id="s3.19.7-ignoring-types"></a>
 <a id="s3.19.7-ignore"></a>
@@ -3217,8 +3214,8 @@ function (as a tuple).
 <a id="typing-ignore"></a>
 #### 3.19.7 Ignoring Types 
 
-You can disable type checking on a line with the special comment `# type:
-ignore`.
+
+Можно отключить проверку типа в строке со специальным комментарием `# type: ignore`.
 
 `pytype` has a disable option for specific errors (similar to lint):
 
@@ -3233,8 +3230,8 @@ ignore`.
 <a id="typing-variables"></a>
 #### 3.19.8 Typing Variables 
 
-If an internal variable has a type that is hard or impossible to infer, you can
-specify its type in a couple ways.
+Если внутренняя переменная имеет тип, который трудно или невозможно вывести, 
+можно указать его тип несколькими способами.
 
 <a id="type-comments"></a>
 [*Type Comments:*](#type-comments)
@@ -3258,11 +3255,12 @@ a: Foo = SomeUndecoratedFunction()
 <a id="3199-tuples-vs-lists"></a>
 
 <a id="typing-tuples"></a>
-#### 3.19.9 Tuples vs Lists 
+#### 3.19.9 Кортеж vs Список
 
-Typed lists can only contain objects of a single type. Typed tuples can either
-have a single repeated type or a set number of elements with different types.
-The latter is commonly used as the return type from a function.
+Напечатанные списки могут содержать только объекты одного типа. 
+Типизированные кортежи могут иметь либо один повторяющийся тип,
+либо множество элементов с различными типами. Последний обычно 
+используется как возвращаемый тип от функции.
 
 ```python
 a = [1, 2, 3]  # type: List[int]
@@ -3282,7 +3280,7 @@ The Python type system has
 [generics](https://www.python.org/dev/peps/pep-0484/#generics). The factory
 function `TypeVar` is a common way to use them.
 
-Example:
+Например:
 
 ```python
 from typing import List, TypeVar
@@ -3292,7 +3290,7 @@ def next(l: List[T]) -> T:
   return l.pop()
 ```
 
-A TypeVar can be constrained:
+Тип TypeVar может быть ограничен:
 
 ```python
 AddableType = TypeVar("AddableType", int, float, str)
@@ -3317,10 +3315,9 @@ def check_length(x: AnyStr) -> AnyStr:
 <a id="31911-string-types"></a>
 
 <a id="typing-strings"></a>
-#### 3.19.11 String types 
+#### 3.19.11 Строковые типы
 
-The proper type for annotating strings depends on what versions of Python the
-code is intended for.
+Подходящий тип для аннотации строк зависит от версий Python, для которых предназначен код.
 
 Prefer to use `str`, though `Text` is also acceptable. Be consistent in using
 one or the other. For code that deals with binary data, use `bytes`. For Python
@@ -3342,15 +3339,14 @@ between Python 2 and Python 3. Never use `unicode` as it doesn't exist in Python
 3. The reason this discrepancy exists is because `str` means something different
 in Python 2 than in Python 3.
 
-No:
+Нет:
 
 ```python
 def py2_code(x: str) -> unicode:
   ...
 ```
 
-If the type can be either bytes or text, use `Union`, with the appropriate text
-type.
+Если тип может быть байт или текст, используйте `Union` с соответствующим типом текста.
 
 ```python
 from typing import Text, Union
@@ -3361,9 +3357,8 @@ def py2_compatible(x: Union[bytes, Text]) -> Union[bytes, Text]:
   ...
 ```
 
-If all the string types of a function are always the same, for example if the
-return type is the same as the argument type in the code above, use
-[AnyStr](#typing-type-var).
+Если все строковые типы функции всегда одинаковы, например, если тип возврата тот же самый, 
+что и тип аргумента в коде выше, используйте [AnyStr](#typing-type-var).
 
 <a id="s3.19.12-imports-for-typing"></a>
 <a id="s3.19.12-imports"></a>
@@ -3394,12 +3389,12 @@ from typing import Any as AnyType
 <a id="31913-conditional-imports"></a>
 
 <a id="typing-conditional-imports"></a>
-#### 3.19.13 Conditional Imports 
+#### 3.19.13 Условный импорт
 
-Use conditional imports only in exceptional cases where the additional imports
-needed for type checking must be avoided at runtime. This pattern is
-discouraged; alternatives such as refactoring the code to allow top level
-imports should be preferred.
+Использовать условный импорт только в исключительных случаях, когда необходимо избегать 
+дополнительного импорта, необходимого для проверки типа во время выполнения. 
+Такая тенденция не поощряется; следует отдавать предпочтение альтернативным вариантам,
+таким, как изменение кода таким образом, чтобы это позволяло импортировать товары высшего уровня.
 
 Imports that are needed only for type annotations can be placed within an `if
 TYPE_CHECKING:` block.
@@ -3425,12 +3420,13 @@ def f(x: "sketch.Sketch"): ...
 <a id="31914-circular-dependencies"></a>
 
 <a id="typing-circular-deps"></a>
-#### 3.19.14 Circular Dependencies 
+#### 3.19.14 Циклические зависимости
 
-Circular dependencies that are caused by typing are code smells. Such code is a
-good candidate for refactoring. Although technically it is possible to keep
-circular dependencies, various build systems will not let you do so
-because each module has to depend on the other.
+Циклические зависимости, вызванные печатью, являются запахами кода. 
+Такой код является хорошим кандидатом для рефакторинга.
+Хотя технически возможно сохранить циклические зависимости,
+различные системы сборки не позволят вам сделать это, 
+потому что каждый модуль должен зависеть от другого.
 
 Replace modules that create circular dependency imports with `Any`. Set an
 [alias](#typing-aliases) with a meaningful name, and use the real type name from
@@ -3452,9 +3448,9 @@ def my_method(self, var: "some_mod.SomeType") -> None:
 <a id="31915-generics"></a>
 
 <a id="generics"></a>
-#### 3.19.15 Generics 
+#### 3.19.15 Generics (Лекарство)
 
-When annotating, prefer to specify type parameters for generic types; otherwise,
+При аннотации предпочитают указывать параметры типа для общих типов; в противном случае
 [the generics' parameters will be assumed to be `Any`](https://www.python.org/dev/peps/pep-0484/#the-any-type).
 
 ```python
@@ -3490,19 +3486,17 @@ def get_names(employee_ids: List[T]) -> Dict[T, str]:
 <a id="4-parting-words"></a>
 
 <a id="consistency"></a>
-## 4 Parting Words 
+## 4 Прощальные слова
 
 *BE CONSISTENT*.
 
-If you're editing code, take a few minutes to look at the code around you and
-determine its style. If they use spaces around all their arithmetic operators,
-you should too. If their comments have little boxes of hash marks around them,
-make your comments have little boxes of hash marks around them too.
+Если вы редактируете код, у вас есть несколько минут, чтобы посмотреть на код вокруг вас и
+определить его стиль. Если они используют пространство вокруг всех своих арифметических операторов,
+вы тоже должны. Если их комментарии имеют маленькие коробки хеш-меток вокруг них, 
+то ваши комментарии имеют маленькие коробки хеш-метки вокруг них тоже.
 
-The point of having style guidelines is to have a common vocabulary of coding so
-people can concentrate on what you're saying rather than on how you're saying
-it. We present global style rules here so people know the vocabulary, but local
-style is also important. If code you add to a file looks drastically different
-from the existing code around it, it throws readers out of their rhythm when
-they go to read it. Avoid this.
-
+Смысл руководства стилем в том, чтобы иметь общий словарь кодирования, чтобы люди могли сосредоточиться
+на том, что вы говорите, а не на том, как вы это говорите. Мы представляем здесь правила глобального 
+стиля, чтобы люди знали словарный запас, но местный стиль также важен. Если код, который вы добавляете
+в файл, выглядит радикально отличным от существующего кода вокруг него, это сбивает читателей с ритма,
+когда они идут читать его. Избегать этого.
